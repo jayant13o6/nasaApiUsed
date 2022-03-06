@@ -6,15 +6,17 @@ const BrowseSpecificPage = ()=>
     const [randomData,setRandomData] = useState([]);
     const [loading, setLoading] = useState(false);
     const id = useParams();
+    const API_KEY = process.env.API_KEY;
 
     const fetchData =()=>{
-        console.log('button1 clicked')
+        console.log('button1 clicked',id.id)
         
-        fetch(`https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=${process.env.API_KEY}`)
+        fetch(`https://api.nasa.gov/neo/rest/v1/neo/${id.id}?api_key=${API_KEY}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
             setRandomData(data);
+            console.log(data.near_earth_objects.name)
             // randomData.innerHTML = JSON.stringify(data.near_earth_objects[6].name);
             // randomData2.innerHTML = JSON.stringify(data.near_earth_objects[6].estimated_diameter);
   
@@ -30,7 +32,7 @@ const BrowseSpecificPage = ()=>
         fetchData();
     },[]);
 
-    if (loading){
+    if (randomData){
         return <h1>pls wait!!!</h1>
     }
     return(

@@ -4,6 +4,8 @@ import React,{useState} from 'react'
 
 const Home = () =>{
     const [user, setUser] = useState({apiData:''});
+    const API_KEY = process.env.API_KEY;
+
     const navigate = useNavigate();
     let name,value;
     const handleInput = (e) =>{
@@ -15,12 +17,12 @@ const Home = () =>{
 
     const button1Func = ()=>{
         console.log('button1 clicked')
-        console.log(console.log(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${process.env.API_KEY}`))
-        fetch(`https://api.nasa.gov/neo/rest/v1/neo/${user.apiData}?api_key=${process.env.API_KEY}`)
+        console.log(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${API_KEY}`)
+        fetch(`https://api.nasa.gov/neo/rest/v1/neo/${user.apiData}?api_key=${API_KEY}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            navigate('/browseSpecificPage/:id')
+            navigate(`/browseSpecificPage/${user.apiData}`)
         })
         .catch(err => console.log(err))
     }
@@ -29,14 +31,14 @@ const Home = () =>{
         console.log('button2 clicked')
         var randomData = document.querySelector('.randomData')
         var randomData2 = document.querySelector('.randomData2')
-        console.log(`https://api.nasa.gov/neo/rest/v1/neo/${user.apiData}?api_key=${process.env.API_KEY}`)
-        // console.log(`https://api.nasa.gov/planetary/${user.apiData}?api_key=${process.env.API_KEY}`)
-        fetch(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${process.env.API_KEY}`)
+        console.log(`https://api.nasa.gov/neo/rest/v1/neo/${user.apiData}?api_key=${API_KEY}`)
+        // console.log(`https://api.nasa.gov/planetary/${user.apiData}?api_key=${API_KEY}`)
+        fetch(`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${API_KEY}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data.near_earth_objects[5])
-            randomData.innerHTML = JSON.stringify(data.near_earth_objects[5].name);
-            randomData2.innerHTML = JSON.stringify(data.near_earth_objects[5].estimated_diameter);
+            console.log(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)])
+            randomData.innerHTML = JSON.stringify(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)].name);
+            randomData2.innerHTML = JSON.stringify(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)].estimated_diameter);
             // navigate('/browseDataPage');    
         })
         .catch(err => console.log(err))
@@ -60,7 +62,7 @@ const Home = () =>{
                     value = {user.apiData}/>
                 </div>
             </form>
-            {/* <a href={`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${process.env.API_KEY}`}> */}
+            {/* <a href={`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${API_KEY}`}> */}
                 <button type="button" className="btn" id="button1" 
                     onClick={button1Func} disabled={!user.apiData}>
                     Button 1
