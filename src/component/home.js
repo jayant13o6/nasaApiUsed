@@ -4,7 +4,7 @@ import React,{useState} from 'react'
 
 const Home = () =>{
     const [user, setUser] = useState({apiData:''});
-    const API_KEY = process.env.API_KEY;
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
     const navigate = useNavigate();
     let name,value;
@@ -39,7 +39,7 @@ const Home = () =>{
             console.log(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)])
             randomData.innerHTML = JSON.stringify(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)].name);
             randomData2.innerHTML = JSON.stringify(data.near_earth_objects[Math.floor((Math.random() * 10) + 1)].estimated_diameter);
-            // navigate('/browseDataPage');    
+            navigate('/browseDataPage');    
         })
         .catch(err => console.log(err))
 

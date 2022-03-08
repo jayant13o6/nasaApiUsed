@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 
 const BrowseDataPage = () =>{
-    const API_KEY = process.env.API_KEY;
+    const API_KEY = process.env.REACT_APP_API_KEY;
     const [randomData,setRandomData] = useState([]);
     const [loading, setLoading] = useState(false);
 

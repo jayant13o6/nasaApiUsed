@@ -6,7 +6,7 @@ const BrowseSpecificPage = ()=>
     const [randomData,setRandomData] = useState([]);
     const [loading, setLoading] = useState(false);
     const id = useParams();
-    const API_KEY = process.env.API_KEY;
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
     const fetchData =()=>{
         console.log('button1 clicked',id.id)
@@ -16,7 +16,7 @@ const BrowseSpecificPage = ()=>
         .then(data => {
             console.log(data)
             setRandomData(data);
-            console.log(data.near_earth_objects.name)
+            console.log(data.name)
             // randomData.innerHTML = JSON.stringify(data.near_earth_objects[6].name);
             // randomData2.innerHTML = JSON.stringify(data.near_earth_objects[6].estimated_diameter);
   
@@ -32,14 +32,15 @@ const BrowseSpecificPage = ()=>
         fetchData();
     },[]);
 
-    if (randomData){
+    if (!randomData || loading){
         return <h1>pls wait!!!</h1>
     }
     return(
         <div>
             <h1>Data needed:</h1>
-                <p>{randomData.near_earth_objects.name}</p>
-                <p>{randomData.near_earth_objects.name_limited}</p>
+                <p>{randomData.name}</p>
+                <p>{randomData.name_limited}</p>
+                <p><a href={randomData.nasa_jpl_url}>nasa_jpl_url</a></p>
         </div>
         
     )
